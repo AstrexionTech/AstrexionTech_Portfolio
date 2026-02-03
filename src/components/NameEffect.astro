@@ -1,0 +1,92 @@
+---
+interface Props {
+  part1: string; 
+  part2: string;
+}
+
+const { part1, part2 } = Astro.props;
+---
+
+<div class="hero-container">
+    <div class="split-text-container">
+        <span class="text-part left">{part1}</span>
+        <span class="separator">&nbsp;</span>
+        <span class="text-part right">{part2}</span>
+    </div>
+</div>
+
+<style>
+    /* 1. Contenedor principal que centra el contenido */
+    .hero-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        /* Ajustamos la altura. No usamos 100vh para que no tape otros elementos.
+           Min-height asegura que tenga presencia. */
+        min-height: 40vh; 
+        width: 100%;
+        overflow: hidden; /* Importante para que la animación no cree scroll lateral */
+    }
+
+    .split-text-container {
+        display: flex;
+        /* Usamos clamp para que la fuente sea responsiva (se achica en celular) */
+        font-size: clamp(3rem, 10vw, 6rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1;
+    }
+
+    .text-part {
+        display: inline-block;
+        opacity: 0; /* Empieza invisible para evitar parpadeos */
+        animation-duration: 1.5s;
+        animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1); /* Movimiento más suave */
+        animation-fill-mode: forwards;
+    }
+
+    .text-part.left {
+        transform: translateX(-100px); /* Reducido para ser más sutil */
+        animation-name: slide-in-left;
+    }
+
+    .text-part.right {
+        transform: translateX(100px);
+        animation-name: slide-in-right;
+    }
+
+    /* ANIMACIONES */
+    @keyframes slide-in-left {
+        0% {
+            opacity: 0;
+            transform: translateX(-100%);
+            filter: blur(10px); /* Efecto extra de desenfoque al entrar */
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
+        }
+    }
+
+    @keyframes slide-in-right {
+        0% {
+            opacity: 0;
+            transform: translateX(100%);
+            filter: blur(10px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
+        }
+    }
+    
+    /* Pequeño ajuste si usas dos nombres separados */
+    .separator {
+        display: inline-block;
+        width: 0.5rem;
+    }
+</style>

@@ -1,0 +1,86 @@
+---
+// Aquí puedes definir variables si necesitas lógica, por ejemplo, resaltar el link activo.
+const links = [
+  { name: 'Inicio', href: '/' },
+  { name: 'Sobre mí', href: '/about' },
+  { name: 'Proyectos', href: '/proyectos' },
+  { name: 'Contacto', href: '/contacto' },
+];
+---
+
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">AstrexionTech</a>
+  </div>
+  
+  <ul class="nav-links">
+    {links.map((link) => (
+      <li>
+        <a href={link.href}>{link.name}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    
+    /* Fondo vidrio (Glassmorphism) */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #ffffff; /* Logo blanco puro */
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem; /* Reduje un poco el espacio para que quepan los botones */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    font-weight: 500;
+    
+    /* 1. Estado normal: Texto Blanco */
+    color: #ffffff; 
+    
+    /* Agregamos un padding y transición para que el cambio de color sea suave */
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  /* 2. Estado Hover: Texto Oscuro (pero con fondo claro) */
+  .nav-links a:hover {
+    color: #000000; /* Texto negro */
+    background-color: #ffffff; /* Fondo blanco */
+    
+    /* Opcional: un pequeño brillo para que resalte más */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Ajuste responsivo */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>

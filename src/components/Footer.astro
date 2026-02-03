@@ -1,0 +1,50 @@
+---
+// src/components/Footer.astro
+const today = new Date();
+const year = today.getFullYear();
+---
+
+<footer>
+  <div class="footer-content">
+    <p>&copy; {year} <strong>Camilo "AstrexionTech" Le Fort</strong>. Todos los derechos reservados.</p>
+    
+    <div class="socials">
+      <a href="https://github.com/AstrexionTech" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/camilo-lefort/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:mi@correo.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background-color: #1a1a1a;
+    color: #f3f3f3;
+    padding: 2rem;
+    margin-top: auto; /* Esto ayuda a que el footer se quede abajo si hay poco contenido */
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .socials {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .socials a {
+    color: #a3a3a3;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .socials a:hover {
+    color: white;
+    text-decoration: underline;
+  }
+</style>

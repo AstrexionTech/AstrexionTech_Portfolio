@@ -1,0 +1,241 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Experience from '../components/Experience.astro';
+import { Icon } from 'astro-icon/components';
+---
+<Layout title="Acerca de mí">
+    <section class="about-container">
+        
+        <div class="content">
+            <h2>Sobre <span class="highlight">Mí</span></h2>
+            
+            <p class="bio">
+            Hola, me llamo Camilo Le Fort, soy un estudiante de último año de <strong>Ingeniería en Informática</strong> en Duoc UC. 
+            Mi mundo vive en el servidor: me especializo en construir la lógica robusta que hace que las aplicaciones funcionen, 
+            usando tecnologías como <strong>ASP.NET Web API</strong> y <strong>NestJS</strong>.
+            </p>
+
+            <p class="bio">
+            Más allá del código, soy un entusiasta de la infraestructura. Me verás configurando contenedores en 
+            <strong>Docker</strong>, administrando bases de datos SQL o probando distros de Linux como Fedora en mi tiempo libre.
+            Recientemente obtuve mi certificación <strong>Azure Fundamentals (AZ-900)</strong> para llevar mis backends a la nube.
+            </p>
+
+            <div class="actions">
+            <a href="/cv.pdf" class="btn primary" target="_blank">
+                <Icon name="tabler:file-text" /> Descargar CV
+            </a>
+            <a href="https://www.linkedin.com/in/camilo-lefort/" class="btn secondary" target="_blank">
+                <Icon name="tabler:brand-linkedin" /> LinkedIn
+            </a>
+            <a href="https://github.com/AstrexionTech" class="btn secondary" target="_blank">
+                <Icon name="tabler:brand-github" /> GitHub
+            </a>
+            </div>
+        </div>
+
+        <div class="stats-card">
+            <div class="card-header">
+            <Icon name="tabler:user-code" class="avatar-icon" />
+            <div>
+                <h3>Backend Developer</h3>
+                <span class="level">Lvl. 24 (Junior)</span>
+            </div>
+            </div>
+
+            <div class="stats-list">
+            <div class="stat-item">
+                <div class="stat-info">
+                <span>C# / .NET</span>
+                <span>90%</span>
+                </div>
+                <div class="progress-bar"><div class="fill" style="width: 90%"></div></div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-info">
+                <span>SQL / Datos</span>
+                <span>85%</span>
+                </div>
+                <div class="progress-bar"><div class="fill" style="width: 85%"></div></div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-info">
+                <span>Docker / Linux</span>
+                <span>75%</span>
+                </div>
+                <div class="progress-bar"><div class="fill" style="width: 75%"></div></div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-info">
+                <span>Resolución de Problemas</span>
+                <span>100%</span>
+                </div>
+                <div class="progress-bar"><div class="fill" style="width: 100%; background: #10b981;"></div></div>
+            </div>
+            </div>
+            
+            <div class="hobbies">
+            <small>INTERESES ACTUALES:</small>
+            <div class="hobby-icons">
+                <span title="Steam / Gaming"><Icon name="tabler:device-gamepad-2" /></span>
+                <span title="Ciberseguridad"><Icon name="tabler:lock" /></span>
+                <span title="Música / Producción"><Icon name="tabler:headphones" /></span>
+            </div>
+            </div>
+        </div>
+    </section>
+    <h1>Experiencia y habilidades</h1>
+    <Experience />
+</Layout>
+
+<style>
+    h1 {
+        text-align: center;
+    }
+
+  .about-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    align-items: center;
+    padding: 4rem 0;
+  }
+
+  .content {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+
+  .highlight {
+    color: #6366f1; /* Tu color índigo */
+  }
+
+  .bio {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #d1d5db; /* Gris claro */
+    margin-bottom: 1rem;
+  }
+
+  strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* Botones */
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.2s;
+  }
+
+  .btn:hover { transform: translateY(-2px); }
+
+  .primary { background: #6366f1; color: white; }
+  .secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+
+  /* --- TARJETA DE STATS (RPG STYLE) --- */
+  .stats-card {
+    flex: 0 0 350px; /* Ancho fijo elegante */
+    background: rgba(25, 30, 45, 0.6); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 1rem;
+  }
+
+  .avatar-icon {
+    font-size: 3rem;
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+
+  .level {
+    color: #10b981; /* Verde esmeralda */
+    font-family: monospace;
+    font-size: 0.9rem;
+  }
+
+  .stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    color: #ccc;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .fill {
+    height: 100%;
+    background: #6366f1;
+    border-radius: 3px;
+  }
+
+  .hobbies {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .hobbies small { color: #666; font-size: 0.7rem; letter-spacing: 1px; }
+
+  .hobby-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    color: #888;
+  }
+  
+  .hobby-icons span:hover { color: #fff; cursor: help; }
+
+  @media (max-width: 768px) {
+    .about-container { flex-direction: column; gap: 2rem; }
+    .stats-card { width: 100%; }
+  }
+</style>

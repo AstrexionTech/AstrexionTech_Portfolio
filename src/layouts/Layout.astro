@@ -1,0 +1,53 @@
+---
+// Importamos los componentes
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+import { ClientRouter } from 'astro:transitions';
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<title>{title}</title>
+        <ClientRouter />
+	</head>
+	<body>
+        <Navbar />
+		
+        <main>
+		    <slot />
+        </main>
+
+        <Footer />
+	</body>
+</html>
+
+<style is:global>
+    /* Estilos globales básicos para que el footer se pegue al fondo */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, sans-serif;
+    }
+    body {
+        background: linear-gradient(90deg, rgba(0, 16, 89, 1) 0%, rgba(0, 70, 184, 1) 50%, rgba(0, 52, 222, 1) 100%);
+        background-attachment: fixed;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+    }
+    main {
+        flex: 1; /* Esto hace que el contenido empuje el footer hacia abajo */
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        width: 100%;
+        box-sizing: border-box;
+        
+    }
+</style>
