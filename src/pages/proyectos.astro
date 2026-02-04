@@ -4,9 +4,21 @@ import Layout from "../layouts/Layout.astro"
 import ProjectCard from "../components/ProjectCard.astro"
 import { Icon } from 'astro-icon/components';
 
+const proyectos = [
+    {
+        titulo: "E-commerce ASP.NET",
+        descripcion: "Backend robusto con autenticación JWT.",
+        stack: ["C#", ".NET 8", "SQL Server"],
+        backend: "https://github.com/AstrexionTech/GreenStyle_Store-Backend",
+        frontend: "https://github.com/AstrexionTech/GreenStyle_Store-Frontend",
+        imagen: "/public/images/ejemplo_de_sitio_web_blog.jpg",
+        urlHost: "fs"
+    }
+]
+
 ---
 
-<Layout title="Mis Proyectos">
+<Layout title="Mis Proyectos - AstrexionTech's Portfolio">
 
     <div class="card-header">
         <Icon name="tabler:code" class="card-icon" />
@@ -15,16 +27,17 @@ import { Icon } from 'astro-icon/components';
     </div>
     
     <div class="grid-proyectos">
-        <ProjectCard 
-        title="E-commerce ASP.NET"
-        description="Backend robusto con autenticación JWT."
-        stack={["C#", ".NET 8", "SQL Server"]}
-        />
-        <ProjectCard 
-        title="E-commerce ASP.NET"
-        description="Backend robusto con autenticación JWT."
-        stack={["C#", ".NET 8", "SQL Server"]}
-        />
+        {proyectos.map((proj) => (
+            <ProjectCard 
+                title={proj.titulo}
+                description={proj.descripcion}
+                stack={proj.stack}
+                repoFront={proj.frontend}
+                repoBack={proj.backend}
+                demoUrl={proj.urlHost}
+                image={proj.imagen}
+            />
+        ))}
     </div>
 </Layout>
 

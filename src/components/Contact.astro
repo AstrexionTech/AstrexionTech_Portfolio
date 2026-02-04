@@ -1,0 +1,236 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const email = "camilolefort.g2004@outlook.com"; // <--- Pon tu correo real aquí
+const linkedinUrl = "https://www.linkedin.com/in/camilo-lefort/"; // <--- Pon tu URL de LinkedIn
+---
+
+<section class="contact-container" id="contacto">
+  
+  <div class="contact-card">
+    <div class="icon-header">
+      <Icon name="tabler:mail-forward" />
+    </div>
+
+    <h2>¿Hablamos?</h2>
+    
+    <p class="description">
+      Actualmente estoy <strong>buscando nuevas oportunidades</strong> para desarrollarme como Backend Developer.
+    </p>
+    
+    <p class="description">
+      Ya sea que tengas una vacante, una consulta sobre mis proyectos, o simplemente quieras charlar sobre tecnologías Microsoft, Docker o videojuegos, ¡mi bandeja de entrada siempre está abierta!
+    </p>
+
+    <div class="buttons-wrapper">
+      
+      <a href={`mailto:${email}`} class="btn-contact email">
+        <Icon name="tabler:mail" />
+        <span>Enviar Correo</span>
+      </a>
+
+      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="btn-contact linkedin">
+        <Icon name="tabler:brand-linkedin" />
+        <span>LinkedIn</span>
+      </a>
+
+    </div>
+
+    <div class="copy-area">
+      <span class="email-text">{email}</span>
+      <button id="copy-btn" class="copy-btn" aria-label="Copiar correo">
+        <Icon name="tabler:copy" id="copy-icon" />
+        <Icon name="tabler:check" id="check-icon" class="hidden" />
+      </button>
+      <span id="tooltip" class="tooltip">¡Copiado!</span>
+    </div>
+
+  </div>
+
+</section>
+
+<script define:vars={{ email }}>
+  // Lógica simple para copiar al portapapeles
+  const copyBtn = document.getElementById('copy-btn');
+  const copyIcon = document.getElementById('copy-icon');
+  const checkIcon = document.getElementById('check-icon');
+  const tooltip = document.getElementById('tooltip');
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(email).then(() => {
+        // 1. Cambiar icono
+        copyIcon.classList.add('hidden');
+        checkIcon.classList.remove('hidden');
+        
+        // 2. Mostrar mensaje "Copiado"
+        tooltip.classList.add('visible');
+
+        // 3. Revertir después de 2 segundos
+        setTimeout(() => {
+          copyIcon.classList.remove('hidden');
+          checkIcon.classList.add('hidden');
+          tooltip.classList.remove('visible');
+        }, 2000);
+      });
+    });
+  }
+</script>
+
+<style>
+  .contact-container {
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .contact-card {
+    background: rgba(23, 23, 23, 0.6); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+  }
+
+  /* Efecto de luz superior */
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+  }
+
+  .icon-header {
+    background: rgba(99, 102, 241, 0.1);
+    color: #6366f1;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  .description {
+    color: #a3a3a3;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  strong { color: #e2e8f0; }
+
+  /* BOTONES GRANDES */
+  .buttons-wrapper {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .btn-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-width: 160px;
+  }
+
+  /* Botón Email (Principal) */
+  .email {
+    background: #6366f1;
+    color: white;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  }
+  .email:hover {
+    background: #4f46e5;
+    transform: translateY(-3px);
+  }
+
+  /* Botón LinkedIn */
+  .linkedin {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .linkedin:hover {
+    background: #0077b5; /* Color oficial LinkedIn */
+    border-color: #0077b5;
+    transform: translateY(-3px);
+  }
+
+  /* ZONA DE COPIAR CORREO */
+  .copy-area {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+  }
+
+  .email-text {
+    color: #888;
+    font-family: monospace;
+    font-size: 0.9rem;
+  }
+
+  .copy-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+  }
+
+  .copy-btn:hover { color: #fff; }
+
+  .hidden { display: none; }
+
+  /* Tooltip de "Copiado" */
+  .tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #10b981;
+    color: #000;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .tooltip.visible { opacity: 1; }
+
+</style>
