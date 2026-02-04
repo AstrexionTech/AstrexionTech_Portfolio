@@ -1,0 +1,223 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const photoUrl = "/public/images/perfil.jpg";
+---
+
+<section class="hero-section">
+  
+  <div class="hero-content">
+    <span class="badge">Disponible para trabajar</span>
+    
+    <h1>Hola, soy <span class="highlight">Camilo</span></h1>
+    
+    <div class="typewriter-wrapper">
+      <span class="prefix">Soy</span>
+      <span id="typewriter-text" class="dynamic-text"></span>
+      <span class="cursor">|</span>
+    </div>
+
+    <p class="short-bio">
+      Estudiante de Ingeniería en Informática y apasionado por el <strong>Backend</strong>. 
+      Transformo lógica compleja en código eficiente usando .NET y Docker. 
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#contacto" class="btn primary">
+        <Icon name="tabler:mail" /> Contáctame
+      </a>
+      <a href="https://github.com/AstrexionTech" target="_blank" class="btn secondary">
+        <Icon name="tabler:brand-github" /> GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-image-container">
+    <div class="image-frame">
+      <img src={photoUrl} alt="Foto de perfil de Javier" />
+    </div>
+    <div class="glow-effect"></div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const textElement = document.getElementById('typewriter-text');
+    
+    if (!textElement) return;
+
+    const phrases = ["Desarrollador Backend", "Estudiante de Ingeniería", "Fanático de PC Gaming", ];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    function type() {
+      // Doble seguridad: verificamos de nuevo por si cambiaste de página mientras corría el timeout
+      if (!textElement) return;
+
+      const currentPhrase = phrases[phraseIndex];
+      
+      if (isDeleting) {
+        textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let typeSpeed = isDeleting ? 50 : 100;
+
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        isDeleting = true;
+        typeSpeed = 2000; 
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        typeSpeed = 500;
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+
+    type();
+  });
+</script>
+
+<style>
+  /* ... (Estilos del contenedor principal iguales) ... */
+  .hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    min-height: 80vh;
+  }
+
+  .hero-content {
+    flex: 1;
+    max-width: 600px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+  }
+
+  .highlight { color: #6366f1; }
+
+  /* --- CORRECCIÓN DE ESPACIO (GAP) --- */
+  .typewriter-wrapper {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    margin-bottom: 1.5rem;
+    display: flex;       /* Flexbox activado */
+    align-items: center; /* Centrado vertical */
+    gap: 0.4em;          /* AQUÍ ESTÁ LA SOLUCIÓN: Separa "Soy" del texto dinámico */
+    height: 2.5rem;
+  }
+
+  .dynamic-text { color: #fff; }
+  
+  .cursor { 
+    display: inline-block; 
+    margin-left: -2px; /* Ajuste fino para acercar el cursor a la letra */
+    animation: blink 1s infinite; 
+    color: #6366f1;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .short-bio {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  strong { color: #e2e8f0; }
+
+  .hero-buttons { display: flex; gap: 1rem; }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+
+  .primary { background: #6366f1; color: white; }
+  .primary:hover { background: #4f46e5; transform: translateY(-3px); }
+
+  .secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
+  .secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+
+  /* Imagen */
+  .hero-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    max-width: 450px;
+  }
+
+  .image-frame {
+    width: 350px;
+    height: 350px;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 2;
+    transform: rotate(3deg);
+    transition: transform 0.3s ease;
+    background: #1e1e1e;
+  }
+
+  .image-frame:hover { transform: rotate(0deg) scale(1.02); }
+
+  .image-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+  .glow-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    filter: blur(40px);
+  }
+
+  @media (max-width: 900px) {
+    .hero-section {
+      flex-direction: column-reverse;
+      text-align: center;
+      gap: 2rem;
+      min-height: auto;
+    }
+    .hero-content { align-items: center; }
+    .typewriter-wrapper { justify-content: center; font-size: 1.4rem; }
+    .hero-buttons { justify-content: center; }
+    .image-frame { width: 250px; height: 250px; transform: rotate(0deg); }
+  }
+</style>
