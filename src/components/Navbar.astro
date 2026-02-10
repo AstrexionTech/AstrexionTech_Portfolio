@@ -1,86 +1,174 @@
 ---
-// Aquí puedes definir variables si necesitas lógica, por ejemplo, resaltar el link activo.
+import { Icon } from 'astro-icon/components';
+
 const links = [
   { name: 'Inicio', href: '/' },
-  { name: 'Sobre mí', href: '/about' },
+  { name: 'Sobre mí', href: '#sobre-mi' },
   { name: 'Proyectos', href: '/proyectos' },
-  { name: 'Contacto', href: '/contacto' },
+  { name: 'Contacto', href: '#contacto' },
 ];
 ---
 
-<nav class="navbar">
-  <div class="logo">
-    <a href="/">AstrexionTech</a>
-  </div>
+<nav id="navbar" class="navbar">
+  <div class="navbar-container">
+    <div class="logo">
+      <a href="/">AstrexionTech</a>
+    </div>
+
+    <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">
+      <Icon name="tabler:menu-2" class="icon-menu" />
+      <Icon name="tabler:x" class="icon-close hidden" />
+    </button>
   
-  <ul class="nav-links">
-    {links.map((link) => (
-      <li>
-        <a href={link.href}>{link.name}</a>
-      </li>
-    ))}
-  </ul>
+    <ul id="nav-links" class="nav-links">
+      {links.map((link) => (
+        <li>
+          <a href={link.href}>{link.name}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
 </nav>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const navbar = document.getElementById('navbar');
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    const iconMenu = document.querySelector('.icon-menu');
+    const iconClose = document.querySelector('.icon-close');
+
+    if (!navbar || !menuToggle || !navLinks || !iconMenu || !iconClose) return;
+
+    // --- LÓGICA DEL MENÚ MÓVIL (La que ya tenías) ---
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      iconMenu.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    });
+
+    // --- NUEVA LÓGICA: SCROLL INTELIGENTE ---
+    let lastScrollY = window.scrollY;
+    
+    window.addEventListener('scroll', () => {
+      // 1. Obtenemos posición actual
+      const currentScrollY = window.scrollY;
+      
+      // 2. Si bajamos Y ya pasamos el top de la página...
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        // ... ocultamos el navbar
+        navbar.classList.add('nav-hidden');
+        
+        // (Opcional) Cerramos el menú móvil si estaba abierto al hacer scroll
+        navLinks.classList.remove('active');
+        iconMenu.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+
+      } else {
+        // 3. Si subimos, lo mostramos
+        navbar.classList.remove('nav-hidden');
+      }
+
+      // 4. Actualizamos la última posición
+      lastScrollY = currentScrollY;
+    });
+  });
+</script>
 
 <style>
   .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    
-    /* Fondo vidrio (Glassmorphism) */
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(23, 23, 23, 0.8);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     
-    position: sticky;
+    /* CAMBIO CLAVE: Usamos fixed para que flote siempre, pero controlaremos su posición */
+    position: fixed; 
     top: 0;
-    z-index: 100;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    
+    /* Animación suave para cuando aparezca/desaparezca */
+    transition: transform 0.3s ease-in-out, background 0.3s;
+  }
+
+  /* CLASE PARA OCULTAR: Mueve el navbar hacia arriba su propia altura (-100%) */
+  .nav-hidden {
+    transform: translateY(-100%);
+  }
+
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .logo a {
     font-size: 1.5rem;
     font-weight: 700;
     text-decoration: none;
-    color: #ffffff; /* Logo blanco puro */
+    color: #fff;
   }
+  .dot { color: #6366f1; }
 
+  /* Enlaces escritorio */
   .nav-links {
     display: flex;
-    gap: 1rem; /* Reduje un poco el espacio para que quepan los botones */
+    gap: 2rem;
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  
+
   .nav-links a {
+    color: #e5e5e5;
     text-decoration: none;
     font-weight: 500;
-    
-    /* 1. Estado normal: Texto Blanco */
-    color: #ffffff; 
-    
-    /* Agregamos un padding y transición para que el cambio de color sea suave */
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    transition: color 0.3s;
   }
+  .nav-links a:hover { color: #6366f1; }
 
-  /* 2. Estado Hover: Texto Oscuro (pero con fondo claro) */
-  .nav-links a:hover {
-    color: #000000; /* Texto negro */
-    background-color: #ffffff; /* Fondo blanco */
-    
-    /* Opcional: un pequeño brillo para que resalte más */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  }
+  .menu-toggle { display: none; }
+  .hidden { display: none; }
 
-  /* Ajuste responsivo */
+  /* --- RESPONSIVE --- */
   @media (max-width: 768px) {
-    .navbar {
+    .navbar-container { padding: 1rem; }
+
+    .menu-toggle {
+      display: block;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #171717;
       flex-direction: column;
-      gap: 1rem;
+      align-items: center;
+      padding: 2rem 0;
+      gap: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .nav-links.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
   }
 </style>

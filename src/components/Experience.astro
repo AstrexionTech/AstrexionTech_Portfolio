@@ -128,7 +128,7 @@ const certs = [
       <h3 class="section-title"><Icon name="tabler:tools" /> Tech Stack</h3>
       <div class="skills-category">
         <span class="category-name">Lenguajes</span>
-        <div class="tags">{skills.languages.map(s => <span class="tag backend">{s}</span>)}</div>
+        <div class="tags">{skills.languages.map(s => <span class="tag languages">{s}</span>)}</div>
       </div>
       <div class="skills-category">
         <span class="category-name">Frontend</span>
@@ -140,7 +140,7 @@ const certs = [
       </div>
       <div class="skills-category">
         <span class="category-name">Bases de Datos</span>
-        <div class="tags">{skills.databases.map(s => <span class="tag backend">{s}</span>)}</div>
+        <div class="tags">{skills.databases.map(s => <span class="tag databases">{s}</span>)}</div>
       </div>
       <div class="skills-category">
         <span class="category-name">DevOps & Herramientas</span>
@@ -244,6 +244,38 @@ const certs = [
   .cert-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: #ccc; text-decoration: none; background: rgba(255, 255, 255, 0.1); padding: 0.3rem 0.6rem; border-radius: 4px; width: fit-content; transition: all 0.2s ease; }
   .cert-link:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
 
+  /* --- ESTILOS DE CERTIFICACIONES (Modo Dark Solid) --- */
+  
+  .cert-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    
+    /* CAMBIO PRINCIPAL: Fondo sólido muy oscuro */
+    background-color: #0a0a0a; 
+    
+    /* Borde sutil alrededor (el borde izquierdo de color se mantiene por el HTML) */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    padding: 1.2rem;
+    border-radius: 12px; /* Un poco más redondeado */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    
+    /* Sombra suave inicial */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  }
+  
+  .cert-card:hover {
+    transform: translateX(5px);
+    
+    /* Al pasar el mouse, aclaramos apenas el borde y aumentamos la sombra */
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
+    
+    /* Opcional: Un fondo apenas más claro para dar feedback */
+    background-color: #121212; 
+  }
+
   .skills-category { margin-bottom: 1.5rem; }
   .category-name { display: block; font-size: 0.9rem; color: #bbb; margin-bottom: 0.8rem; font-weight: 600; }
   .tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
@@ -253,6 +285,90 @@ const certs = [
   .languages { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
   .frontend { background: rgba(236, 72, 153, 0.15); color: #fbcfe8; border: 1px solid rgba(236, 72, 153, 0.3); }
   .tools { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+  /* --- ESTILOS DE TAGS (TECH STACK) ACTUALIZADOS --- */
+  
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem; /* Un poco más de espacio entre ellos */
+  }
+
+  .tag {
+    padding: 0.4rem 1rem;
+    border-radius: 30px; /* Bien redondos (Pills) */
+    font-size: 0.85rem;
+    font-weight: 600; /* Un poco más gordita la letra para que se lea bien */
+    letter-spacing: 0.5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    /* Aseguramos que el fondo tape lo que hay detrás */
+    backdrop-filter: none; 
+  }
+
+  .tag:hover {
+    transform: translateY(-2px);
+  }
+
+  /* LENGUAJES (Rojo) */
+  .languages {
+    background-color: #0f111a; /* Fondo MUY oscuro (casi negro) */
+    color: #ccc;            /* Texto claro */
+    border: 1px solid rgba(255, 43, 47, 1); /* Borde definido */
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.1); /* Sutil resplandor */
+  }
+
+  .languages:hover {
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    border-color: tomato;
+  }
+
+  /* BACKEND (Indigo) */
+  .backend {
+    background-color: #0f111a; /* Fondo MUY oscuro (casi negro) */
+    color: #a5b4fc;            /* Texto claro */
+    border: 1px solid rgba(99, 102, 241, 0.6); /* Borde definido */
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.1); /* Sutil resplandor */
+  }
+  
+  .backend:hover {
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    border-color: #6366f1;
+  }
+
+  /* FRONTEND (Rosa) */
+  .frontend {
+    background-color: #1a0f14; /* Fondo oscuro con tinte rojizo */
+    color: #fbcfe8;
+    border: 1px solid rgba(236, 72, 153, 0.6);
+    box-shadow: 0 4px 10px rgba(236, 72, 153, 0.1);
+  }
+
+  .frontend:hover {
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+    border-color: #ec4899;
+  }
+
+  /* BASES DE DATOS */
+  .databases {
+    background-color: rgba(20, 59, 26, 1); /* Fondo oscuro con tinte rojizo */
+    color: chartreuse;
+    border: 1px solid rgba(0, 176, 29, 1);;
+    box-shadow: 0 4px 10px rgba(236, 72, 153, 0.1);
+  }
+
+  /* TOOLS / DEVOPS (Verde Esmeralda) */
+  .tools {
+    background-color: #061812; /* Fondo oscuro con tinte verdoso */
+    color: #6ee7b7;
+    border: 1px solid rgba(16, 185, 129, 0.6);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.1);
+  }
+
+  .tools:hover {
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    border-color: #10b981;
+  }
 
   @media (max-width: 768px) {
     .experience-section { grid-template-columns: 1fr; gap: 3rem; }

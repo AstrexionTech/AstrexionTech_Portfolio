@@ -5,25 +5,20 @@ import { Icon } from 'astro-icon/components';
 
 const proyectos = [
     {
-        titulo: "E-commerce ASP.NET",
-        descripcion: "Backend robusto con autenticación JWT.",
-        stack: ["C#", ".NET 8", "SQL Server"],
+        titulo: "GreenStyle Store E-commerce",
+        descripcion: "Aplicación e-commerce para una tienda de artículos reciclables y sostenibles.",
+        stack: ["C#", ".NET 8", "SQL Server", "Docker"],
         backend: "https://github.com/AstrexionTech/GreenStyle_Store-Backend",
         frontend: "https://github.com/AstrexionTech/GreenStyle_Store-Frontend",
         imagen: "/images/ejemplo_de_sitio_web_blog.jpg",
         urlHost: "/"
     }
 ]
-
 ---
 
 <Layout title="Mis Proyectos - AstrexionTech's Portfolio">
 
-    <div class="card-header">
-        <Icon name="tabler:code" class="card-icon" />
-        
-        <h1>Portafolio de Proyectos</h1>
-    </div>
+    <h1>Portafolio de Proyectos</h1>
     
     <div class="grid-proyectos">
         {proyectos.map((proj) => (
@@ -43,6 +38,7 @@ const proyectos = [
 <style>
     h1 {
         text-align: center;
+        padding: 2em;
     }
     .grid-proyectos { 
         display: flex;
@@ -56,15 +52,11 @@ const proyectos = [
         border-radius: 8px; 
     }
     .card-header {
+        padding: 4em;
         display: flex;         /* Activa el modo flexible */
         align-items: center;   /* Centra verticalmente el ícono con el texto */
         gap: 0.75rem;          /* Espacio entre el ícono y el título */
         margin-bottom: 1rem;
-    }
-    .card-icon {
-        font-size: 2rem;       /* Tamaño del ícono */
-        color: #6366f1;        /* Color del ícono (ej. Índigo) */
-        flex-shrink: 0;        /* Evita que el ícono se aplaste si el título es largo */
     }
     .badge { 
         background: orange; 
