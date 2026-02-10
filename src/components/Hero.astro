@@ -120,25 +120,40 @@ const photoUrl = "/images/perfil.jpg";
 
   .highlight { color: #6366f1; }
 
-  /* --- CORRECCIÓN DE ESPACIO (GAP) --- */
+  /* 1. Contenedor flexible pero robusto */
   .typewriter-wrapper {
     font-size: 1.8rem;
     font-weight: 600;
     color: #cbd5e1;
     margin-bottom: 1.5rem;
-    display: flex;       /* Flexbox activado */
-    align-items: center; /* Centrado vertical */
-    gap: 0.4em;          /* AQUÍ ESTÁ LA SOLUCIÓN: Separa "Soy" del texto dinámico */
-    height: 2.5rem;
+    
+    display: flex;
+    align-items: center; /* Alinea verticalmente */
+    flex-wrap: wrap;     /* ¡CLAVE! Permite que el texto baje si no cabe */
+    gap: 0.4em;
+    
+    /* 2. Altura mínima reservada */
+    /* En vez de height fijo, usamos min-height para que crezca si son 2 líneas */
+    min-height: 3.5rem; 
+    line-height: 1.2;     /* Un interlineado apretado se ve mejor */
   }
 
-  .dynamic-text { color: #fff; }
-  
+  /* El texto dinámico */
+  .dynamic-text { 
+    color: #fff;
+    word-break: break-word; /* Evita que palabras largas rompan el scroll horizontal */
+  }
+
+  /* El cursor */
   .cursor { 
     display: inline-block; 
-    margin-left: -2px; /* Ajuste fino para acercar el cursor a la letra */
+    margin-left: -2px;
     animation: blink 1s infinite; 
     color: #6366f1;
+    
+    /* Asegura que el cursor tenga altura aunque esté en una línea nueva vacía */
+    height: 1em; 
+    vertical-align: middle;
   }
   @keyframes blink { 50% { opacity: 0; } }
 
@@ -208,16 +223,48 @@ const photoUrl = "/images/perfil.jpg";
     filter: blur(40px);
   }
 
+  /* --- AJUSTES MÓVILES (IPHONE 11 Y SIMILARES) --- */
   @media (max-width: 900px) {
     .hero-section {
       flex-direction: column-reverse;
       text-align: center;
       gap: 2rem;
       min-height: auto;
+      padding-top: 6rem; /* Espacio para el Navbar fijo */
+      padding-bottom: 2rem;
     }
-    .hero-content { align-items: center; }
-    .typewriter-wrapper { justify-content: center; font-size: 1.4rem; }
-    .hero-buttons { justify-content: center; }
-    .image-frame { width: 250px; height: 250px; transform: rotate(0deg); }
+
+    .hero-content {
+      align-items: center;
+      width: 100%; /* Asegura que ocupe todo el ancho disponible */
+      padding: 0 1rem; /* Margen de seguridad a los lados */
+    }
+
+    /* 3. Reducimos la fuente en móvil para que quepan más letras */
+    .typewriter-wrapper {
+      justify-content: center; /* Centrado en móvil */
+      font-size: 1.5rem;       /* Letra más pequeña (antes era 1.8rem) */
+      min-height: 4rem;        /* Más espacio vertical por si se hacen 2 líneas */
+      gap: 0.3em;
+    }
+    
+    /* Ajuste para que el título principal tampoco rompa */
+    h1 {
+      font-size: 2.5rem; /* Reducido de 3.5rem */
+    }
+
+    /* Imagen más pequeña */
+    .image-frame {
+      width: 250px;
+      height: 250px;
+      transform: rotate(0deg);
+    }
+  }
+
+  /* AJUSTE EXTRA-PEQUEÑO (Celulares muy angostos como iPhone SE) */
+  @media (max-width: 380px) {
+    .typewriter-wrapper {
+      font-size: 1.3rem; /* Aún más pequeño si es necesario */
+    }
   }
 </style>

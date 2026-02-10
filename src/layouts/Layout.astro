@@ -27,27 +27,59 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-    /* Estilos globales básicos para que el footer se pegue al fondo */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        font-family: system-ui, sans-serif;
-    }
-    body {
-        background: linear-gradient(90deg, rgba(0, 16, 89, 1) 0%, rgba(0, 70, 184, 1) 50%, rgba(0, 52, 222, 1) 100%);
-        background-attachment: fixed;
-        color: #ffffff;
-        display: flex;
-        flex-direction: column;
-    }
-    main {
-        flex: 1; /* Esto hace que el contenido empuje el footer hacia abajo */
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-        width: 100%;
-        box-sizing: border-box;
-        
-    }
+  /* Reseteo básico */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, sans-serif;
+    
+    /* 1. ELIMINA LOS CUADROS BLANCOS */
+    /* Define el color base como oscuro. Si el degradado falla, se verá esto y no blanco. */
+    background-color: midnightblue; 
+    
+    /* Evita el scroll horizontal accidental */
+    overflow-x: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    
+    /* Importante para que el pseudo-elemento se posicione respecto al body */
+    position: relative; 
+  }
+
+  /* 2. EL DEGRADADO ROBUSTO (Técnica ::before) */
+  /* En lugar de poner el degradado en el body, lo ponemos en una capa fija detrás */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Se va al fondo de todo */
+    
+    /* Tu degradado original */
+    background: radial-gradient(circle at 50% 0%, #2d3446, #0d1117 80%);
+    
+    /* Esto suaviza el renderizado en móviles */
+    pointer-events: none;
+  }
+
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem; /* Un poco de margen a los lados en móvil */
+    box-sizing: border-box;
+  }
+  
+  /* Ajuste de scroll suave para anclas (Contacto, Sobre mí) */
+  html {
+    scroll-behavior: smooth;
+  }
 </style>
