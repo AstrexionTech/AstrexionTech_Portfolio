@@ -1,0 +1,16 @@
+services:
+  astro-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portafolio_astro
+    ports:
+      - "4321:4321"
+    volumes:
+      # 1. Mapea tu código de Windows al contenedor (Hot Reloading activo)
+      - .:/app
+      # 2. EL TRUCO: Volumen anónimo para node_modules.
+      # Aísla las dependencias dentro de Linux, Windows no las toca.
+      - /app/node_modules
+    # Opcional: Reinicia automáticamente si hay algún fallo
+    restart: unless-stopped

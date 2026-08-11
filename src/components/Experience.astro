@@ -29,15 +29,24 @@ const estudios = [
 
 // 3. HABILIDADES TÉCNICAS
 const skills = {
-  languages: ["C# .NET 8", "Node.js", "Java", "Python"],
-  backend: ["ASP.NET Web API", "NestJS", "Express.js", "Spring Boot"],
-  databases: ["SQL Server", "MongoDB", "MySQL"],
-  frontend: ["Angular", "Astro", "React (Learning)", "HTML/CSS"],
+  languages: ["C# .NET", "Node.js", "Java", "Python"],
+  backend: ["ASP.NET Core Web API", "Express.js", "Spring Boot", "FastAPI"],
+  databases: ["SQL Server", "Oracle", "MongoDB", "MySQL"],
+  frontend: ["Angular", "Astro", "HTML/CSS"],
   tools: ["Docker", "Git/GitHub", "Postman", "Visual Studio Code"],
+  cloud: ["Microsoft Azure", "Google Cloud Platform (GCP)"]
 };
 
 // 4. CERTIFICACIONES
 const certs = [
+  {
+    nombre: "Microsoft Certified: Azure Data Fundamentals",
+    empresa: "Microsoft",
+    fecha: "Junio 2026",
+    icon: "tabler:database",
+    color: "#0078D4", // Azul Azure
+    url: "https://www.credly.com/badges/a31edfcb-489a-4d18-aa93-81f461deb0d7/public_url",
+  },
   {
     nombre: "Microsoft Certified: Azure Fundamentals",
     empresa: "Microsoft",
@@ -47,12 +56,20 @@ const certs = [
     url: "https://www.credly.com/badges/879052ce-be48-4b38-878c-0546ebe0e411/public_url",
   },
   {
+    nombre: "Scrum Fundamentals Certified",
+    empresa: "SCRUMstudy",
+    fecha: "Enero 2026",
+    icon: "tabler:file-text",
+    color: "#2FC700", // Verde 
+    url: "https://www.scrumstudy.com/certification/verify?type=SFC&number=1142263",
+  },
+  {
     nombre: "Foundational C# with Microsoft",
     empresa: "freeCodeCamp",
     fecha: "Julio 2025",
     icon: "tabler:code",
     color: "#C400FF", // Rosado .NET
-    url: "https://www.freecodecamp.org/certification/itzcamixster32/foundational-c-sharp-with-microsoft",
+    url: "https://www.freecodecamp.org/certification/astrexiontech/foundational-c-sharp-with-microsoft",
   },
 ];
 ---
@@ -145,6 +162,10 @@ const certs = [
       <div class="skills-category">
         <span class="category-name">DevOps & Herramientas</span>
         <div class="tags">{skills.tools.map(s => <span class="tag tools">{s}</span>)}</div>
+      </div>
+      <div class="skills-category">
+        <span class="category-name">Cloud Computing</span>
+        <div class="tags">{skills.cloud.map(s => <span class="tag cloud">{s}</span>)}</div>
       </div>
     </div>
 
@@ -280,11 +301,12 @@ const certs = [
   .category-name { display: block; font-size: 0.9rem; color: #bbb; margin-bottom: 0.8rem; font-weight: 600; }
   .tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .tag { padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
-  .backend { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
-  .databases { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
-  .languages { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
-  .frontend { background: rgba(236, 72, 153, 0.15); color: #fbcfe8; border: 1px solid rgba(236, 72, 153, 0.3); }
-  .tools { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+  .backend { background: rgb(0, 0, 0); color: #173bee; border: 1px solid rgba(99, 102, 241, 0.3); }
+  .databases { background: rgb(0, 0, 0); color: #ff1ca8; border: 1px solid rgba(99, 102, 241, 0.3); }
+  .languages { background: rgb(0, 0, 0); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
+  .frontend { background: rgb(0, 0, 0); color: #fbcfe8; border: 1px solid rgba(236, 72, 153, 0.3); }
+  .tools { background: rgb(0, 0, 0); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+  .cloud { background: rgb(0, 0, 0); color: #e7b62e; border: 1px solid rgba(255, 115, 0, 0.3); }
 
   /* --- ESTILOS DE TAGS (TECH STACK) ACTUALIZADOS --- */
   
@@ -368,6 +390,18 @@ const certs = [
   .tools:hover {
     box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
     border-color: #10b981;
+  }
+
+  /* CLOUD COMPUTING */
+  .cloud {
+    background-color: #1a0f14;
+    color:#e7b62e;
+    border: 1px solid rgba(250, 115, 5, 0.3);
+  }
+
+  .cloud:hover {
+    box-shadow: 0 4px 15px rgba(185, 145, 16, 0.3);
+    border-color: #b99a10;
   }
 
   @media (max-width: 768px) {
